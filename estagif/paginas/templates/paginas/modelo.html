@@ -39,29 +39,21 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                Dropdown
+                                Cadastros
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-marca' %}">Cadastrar Marca</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-produto' %}">Cadastrar Produto</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                Dropdown
+                                Atualização
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><a class="dropdown-item" href="#">Atualizar Marca</a></li>
+                                <li><a class="dropdown-item" href="#">Atualizar Produto</a></li>
                             </ul>
                         </li>
 
@@ -80,6 +72,7 @@
     <!-- Begin page content -->
     <main class="flex-shrink-0">
         <div class="container">
+            {% block conteudo %}
 
             <h1 class="mt-5">Título da Página</h1>
 
@@ -89,6 +82,7 @@
 
             <p>Back to <a href="/docs/5.3/examples/sticky-footer/">the default sticky footer</a> minus the navbar.</p>
 
+            {% endblock %}
         </div>
     </main>
 
@@ -96,11 +90,7 @@
     <footer class="footer mt-auto py-3 bg-light">
         <div class="container">
             <span class="text-muted">
-                EstagIF
-                ~
-                Gerenciamento de Estágios do IFPR
-                ~
-                Desenvolvido por Andrey Silva Cordeiro</span>
+                Cosmetic Survey - Desenvolvido por Andrey Silva Cordeiro</span>
         </div>
     </footer>
 
