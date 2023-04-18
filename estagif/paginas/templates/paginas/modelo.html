@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="Andrey Silva Cordeiro">
 
-    <title>Sticky Footer Navbar Template · Bootstrap v5.3</title>
+    <title>Cosmetic Survey</title>
 
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'css/sticky-footer-navbar.css' %}" rel="stylesheet">
@@ -20,10 +20,9 @@
 <body class="d-flex flex-column h-100">
 
     <header>
-        <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-verde-escuro">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Fixed navbar</a>
+                <a class="navbar-brand" href="#">Cosmetic Survey </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -31,10 +30,18 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="#">Início</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Link</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Listagem
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-marca' %}">Marca</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-produto' %}">Produto</a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
@@ -42,51 +49,33 @@
                                 Cadastros
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'cadastrar-marca' %}">Cadastrar Marca</a></li>
-                                <li><a class="dropdown-item" href="{% url 'cadastrar-produto' %}">Cadastrar Produto</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-marca' %}">Marca</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-produto' %}">Produto</a>
+                                </li>
                             </ul>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Atualização
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Atualizar Marca</a></li>
-                                <li><a class="dropdown-item" href="#">Atualizar Produto</a></li>
-                            </ul>
-                        </li>
-
-
                     </ul>
 
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-light" type="submit">Search</button>
-                    </form>
+                    {% if not request.user.is_authenticated %}
+                    <a class="btn btn-outline-light" href="{% url 'logout' %}">Sair</a>
+                    {% endif %}
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- Begin page content -->
     <main class="flex-shrink-0">
         <div class="container">
             {% block conteudo %}
 
-            <h1 class="mt-5">Título da Página</h1>
+            <h1 class="mt-5">Cosmetic Survey</h1>
 
-            <p class="lead">Pin a footer to the bottom of the viewport in desktop browsers with this custom HTML and
-                CSS. A fixed navbar has been added with <code class="small">padding-top: 60px;</code> on the <code
-                    class="small">main &gt; .container</code>.</p>
-
-            <p>Back to <a href="/docs/5.3/examples/sticky-footer/">the default sticky footer</a> minus the navbar.</p>
+            <p class="lead">Seja bem-vindo ao sistema Cosmetic Survey.</p>
 
             {% endblock %}
         </div>
     </main>
 
-    <!-- Conteúdo do Rodapé -->
     <footer class="footer mt-auto py-3 bg-light">
         <div class="container">
             <span class="text-muted">
@@ -97,8 +86,6 @@
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-
-
 </body>
 
 </html>

@@ -5,7 +5,7 @@
 {% load crispy_forms_tags %}
 
 {% block conteudo %}
-<h1 class="mt-5">Formulário</h1>
+<h1 class="mt-5">{{titulo|default:"Formulário"}}</h1>
 
 <form action="" method="post">
     {% csrf_token %}
