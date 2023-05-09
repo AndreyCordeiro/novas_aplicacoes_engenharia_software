@@ -12,6 +12,7 @@ class MarcaCreate(LoginRequiredMixin, CreateView):
     fields = ["nome"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-marca")
+    extra_context = {"titulo": "Cadastro de Marca"}
 
 
 class ProdutoCreate(LoginRequiredMixin, CreateView):
@@ -19,14 +20,14 @@ class ProdutoCreate(LoginRequiredMixin, CreateView):
     fields = ["nome", "preco", "codigo", "marca"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-produto")
-
+    extra_context = {"titulo": "Cadastro de Produto"}
 
 class ClienteCreate(LoginRequiredMixin, CreateView):
     model = Cliente
     fields = ["nome", "cpf", "telefone"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cliente")
-
+    extra_context = {"titulo": "Cadastro de Cliente"} 
 
 # UPDATE
 
@@ -55,37 +56,37 @@ class ClienteUpdate(LoginRequiredMixin, UpdateView):
 # LIST
 
 
-class MarcaList(ListView):
+class MarcaList(LoginRequiredMixin, ListView):
     model = Marca
     template_name = "cadastros/list/marca.html"
 
 
-class ProdutoList(ListView):
+class ProdutoList(LoginRequiredMixin, ListView):
     model = Produto
-    template_name = "cadastros/list/.html"
+    template_name = "cadastros/list/produto.html"
 
 
-class ClienteList(ListView):
+class ClienteList(LoginRequiredMixin, ListView):
     model = Cliente
-    template_name = "cadastros/list/.html"
+    template_name = "cadastros/list/cliente.html"
 
 
 # DELETE
 
 
-class MarcaDelete(DeleteView):
+class MarcaDelete(LoginRequiredMixin, DeleteView):
     model = Marca
     template_name = "cadastros/delete.html"
     success_url = reverse_lazy("listar-marca")
 
 
-class ProdutoDelete(DeleteView):
+class ProdutoDelete(LoginRequiredMixin, DeleteView):
     model = Produto
     template_name = "cadastros/list/delete.html"
     success_url = reverse_lazy("listar-produto")
 
 
-class ClienteDelete(DeleteView):
+class ClienteDelete(LoginRequiredMixin, DeleteView):
     model = Cliente
     template_name = "cadastros/list/delete.html"
     success_url = reverse_lazy("listar-cliente")

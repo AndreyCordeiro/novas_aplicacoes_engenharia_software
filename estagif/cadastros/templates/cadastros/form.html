@@ -12,7 +12,7 @@
 
     {{ form|crispy }}
 
-    <button type="submit" class="btn btn-success">Salvar</button>
+    <button type="submit" class="btn btn-success">{{descricao_botao|default:"Salvar"}}</button>
 </form>
 
 {% endblock %}

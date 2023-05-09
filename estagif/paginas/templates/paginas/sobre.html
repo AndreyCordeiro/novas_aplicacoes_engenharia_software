@@ -1,0 +1,39 @@
+{% extends "paginas/modelo.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block conteudo %}
+
+<body>
+    <div class="container">
+
+        <h1 class="mt-5">Sobre</h1>
+
+        <p class="lead">
+            O sistema aspira facilitar o trabalho de uma revendedora autônoma em específico que trabalha
+            a 16 anos no ramo da venda de cosmétciso e
+            possui mais de 100 clientes. Com o sistema a cliente poderá melhorar a gestão de suas vendas e a
+            qualidade do seu
+            trabalho.
+
+            Além disso, a solução também irá disponibilizar o cadastro de clientes contendo informações pessoais e
+            para contato. O
+            cadastro de produtos e das marcas que a cliente trabalha, para poderem ser vinculados às vendas.</p>
+
+        <h3 class="mt-5">Diagrama de Classes</h3>
+
+        <img src="{% static 'assets/dc.svg' %}" alt="Diagrama de Classes">
+
+        <h3 class="mt-5">Diagrama de Caso de Uso</h3>
+
+        <div style="width: 640px; height: 480px; margin: 10px; position: relative;"><iframe allowfullscreen
+                frameborder="0" style="width:640px; height:480px"
+                src="https://lucid.app/documents/embedded/5a3bb3f1-b0a6-46b0-9299-f4a4e2190d55"
+                id="SpeWM_2CNQ1a"></iframe>
+        </div>
+    </div>
+</body>
+
+{% endblock %}

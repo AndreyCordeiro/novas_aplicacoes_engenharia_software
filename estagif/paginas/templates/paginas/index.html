@@ -1,20 +1,15 @@
-<!-- Carregar e pertimir o uso dos arquivos estáticos -->
+{% extends "paginas/modelo.html" %}
+
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% load crispy_forms_tags %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
-</head>
+{% block conteudo %}
+<div class="container">
 
-<body>
-    <h2>Olá Django</h2>
+    <h1 class="mt-5">Cosmetic Survey</h1>
 
-</body>
+    <p class="lead">Seja bem-vindo ao sistema Cosmetic Survey.</p>
+</div>
 
-</html>
+{% endblock %}
