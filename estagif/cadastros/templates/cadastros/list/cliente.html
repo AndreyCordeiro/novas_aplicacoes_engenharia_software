@@ -22,16 +22,18 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>Código</th>
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>Telefone</th>
                 <th>Criado em</th>
-                <th>Atualizado em</th>
+                <th>Última atualização em</th>
             </tr>
         </thead>
         <tbody>
             {% for obj in object_list %}
             <tr class="">
+                <td>{{ obj.pk }}</td>
                 <td>{{ obj.nome }}</td>
                 <td>{{ obj.cpf }}</td>
                 <td>{{ obj.telefone }}</td>

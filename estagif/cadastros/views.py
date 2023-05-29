@@ -29,6 +29,14 @@ class ClienteCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("listar-cliente")
     extra_context = {"titulo": "Cadastro de Cliente"} 
 
+
+class PedidoCreate(LoginRequiredMixin, CreateView):
+    model = Pedido
+    fields = ["produtos", "ciclo", "cliente"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-pedido")
+    extra_context = {"titulo": "Cadastro de Pedido"}
+
 # UPDATE
 
 
@@ -70,6 +78,11 @@ class ClienteList(LoginRequiredMixin, ListView):
     model = Cliente
     template_name = "cadastros/list/cliente.html"
 
+    
+class PedidoList(LoginRequiredMixin, ListView):
+    model = Pedido
+    template_name = "cadastros/list/pedido.html"
+
 
 # DELETE
 
@@ -90,3 +103,9 @@ class ClienteDelete(LoginRequiredMixin, DeleteView):
     model = Cliente
     template_name = "cadastros/list/delete.html"
     success_url = reverse_lazy("listar-cliente")
+
+
+class PedidoDelete(LoginRequiredMixin, DeleteView):
+    model = Pedido
+    template_name = "cadastros/delete.html"
+    success_url = reverse_lazy("listar-pedido")

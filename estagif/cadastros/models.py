@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -44,6 +45,8 @@ class Pedido(models.Model):
     produtos = models.ForeignKey(
         Produto, on_delete=models.PROTECT, help_text="Selecione um Produto")
     ciclo = models.IntegerField(verbose_name="Ciclo")
+    cliente = models.ForeignKey(
+        Cliente, on_delete=models.PROTECT, help_text="Selecione um Cliente")
 
     criado_em = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)
@@ -57,7 +60,8 @@ class Pagamento(models.Model):
     data_vencimento = models.DateField()
     data_pagamento = models.DateField()
     parcelas = models.IntegerField(verbose_name="Parcelas")
-    forma_pagamento = models.CharField(max_length=55, verbose_name="Forma pagamento")
+    forma_pagamento = models.CharField(
+        max_length=55, verbose_name="Forma pagamento")
 
     criado_em = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)

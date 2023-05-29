@@ -6,12 +6,12 @@
 
 <div class="row justify-content-center align-items-center mt-3">
     <div class="col-md-8">
-        <h3 class="">Produtos</h3>
+        <h3 class="">Pedidos</h3>
     </div>
     <div class="col-md">
-        <a href="{% url 'cadastrar-produto' %}" class="btn btn-primary btn-sm">
+        <a href="{% url 'cadastrar-pedido' %}" class="btn btn-primary btn-sm">
             <i class="bi bi-plus-lg"></i>
-            Cadastrar Produto
+            Cadastrar Pedido
         </a>
     </div>
 </div>
@@ -23,10 +23,9 @@
         <thead>
             <tr>
                 <th>Código</th>
-                <th>Nome</th>
-                <th>Preço</th>
-                <th>Código Produto</th>
-                <th>Marca</th>
+                <th>Produtos</th>
+                <th>Ciclo</th>
+                <th>Cliente</th>
                 <th>Criado em</th>
                 <th>Última atualização em</th>
             </tr>
@@ -35,10 +34,9 @@
             {% for obj in object_list %}
             <tr class="">
                 <td>{{ obj.pk }}</td>
-                <td>{{ obj.nome }}</td>
-                <td>{{ obj.preco }}</td>
-                <td>{{ obj.codigo }}</td>
-                <td>{{ obj.marca }}</td>
+                <td>{{ obj.produtos }}</td>
+                <td>{{ obj.ciclo }}</td>
+                <td>{{ obj.cliente }}</td>
                 <td>{{ obj.criado_em }}</td>
                 <td>{{ obj.atualizado_em }}</td>
                 <td>
@@ -48,9 +46,7 @@
                             <i class="bi bi-gear"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item text-primary" href="{% url 'atualizar-produto' obj.pk %}">
-                                    <i class="bi bi-pencil-square"></i>Editar</a></li>
-                            <li><a class="dropdown-item text-danger" href="{% url 'excluir-produto' obj.pk %}">
+                            <li><a class="dropdown-item text-danger" href="{% url 'excluir-pedido' obj.pk %}">
                                     <i class="bi bi-trash"></i> Excluir</a></li>
                         </ul>
                     </div>

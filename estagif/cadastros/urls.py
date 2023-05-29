@@ -2,6 +2,7 @@ from django.urls import path
 from .views import MarcaCreate, MarcaUpdate, MarcaList, MarcaDelete
 from .views import ProdutoCreate, ProdutoUpdate, ProdutoList, ProdutoDelete
 from .views import ClienteCreate, ClienteUpdate, ClienteList, ClienteDelete
+from .views import PedidoCreate, PedidoList, PedidoDelete
 
 urlpatterns = [
     path("cadastrar/marca", MarcaCreate.as_view(), name="cadastrar-marca"),
@@ -25,4 +26,8 @@ urlpatterns = [
     path("listar/cliente", ClienteList.as_view(), name="listar-cliente"),
     path("excluir/cliente/<int:pk>/",
          ClienteDelete.as_view(), name="excluir-cliente"),
+
+    path("cadastrar/pedido", PedidoCreate.as_view(), name="cadastrar-pedido"),
+    path("listar/pedido", PedidoList.as_view(), name="listar-pedido"),
+    path("excluir/pedido/<int:pk>/", PedidoDelete.as_view(), name="excluir-pedido"),
 ]
