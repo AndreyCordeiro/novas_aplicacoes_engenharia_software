@@ -1,4 +1,6 @@
-from .models import Marca, Produto, Cliente, Pedido
+from django.forms.models import BaseModelForm
+from django.http import HttpResponse
+from .models import Marca, Produto, Cliente, Pedido, Carrinho, ProdutoPedido
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
@@ -22,20 +24,56 @@ class ProdutoCreate(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("listar-produto")
     extra_context = {"titulo": "Cadastro de Produto"}
 
+
 class ClienteCreate(LoginRequiredMixin, CreateView):
     model = Cliente
     fields = ["nome", "cpf", "telefone"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cliente")
-    extra_context = {"titulo": "Cadastro de Cliente"} 
+    extra_context = {"titulo": "Cadastro de Cliente"}
 
 
 class PedidoCreate(LoginRequiredMixin, CreateView):
     model = Pedido
-    fields = ["produtos", "ciclo", "cliente"]
+    fields = ["ciclo", "cliente", "valor_total"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-pedido")
     extra_context = {"titulo": "Cadastro de Pedido"}
+
+    def form_valid(self, form):
+        form.instance.preco = 0.0
+
+        # cria a venda no banco e o object
+        url = super().form_valid(form)
+
+        # faz um select em todos os produtos do carirnho
+        produtos_pedido = Carrinho.objects.all()
+        valor_total = 0.0
+
+        for i in produtos_pedido:
+            valor_total += (float(i.produto.preco) * i.quantidade)
+
+            ProdutoPedido.objects.create(
+                produto=i.produto,
+                pedido=self.object,
+                preco=i.produto.preco * i.quantidade,
+                quantidade=i.quantidade
+            )
+
+            i.delete()
+
+        self.object.valor_total = valor_total
+        self.object.save()
+
+        return url
+
+
+class CarrinhoCreate(LoginRequiredMixin, CreateView):
+    model = Carrinho
+    fields = ["produto", "quantidade"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-carrinho")
+    extra_context = {"titulo": "Carrinho de itens"}
 
 # UPDATE
 
@@ -61,6 +99,12 @@ class ClienteUpdate(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy("listar-cliente")
 
 
+class CarrinhoUpdate(LoginRequiredMixin, UpdateView):
+    model = Carrinho
+    fields = ["produto", "quantidade"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-carrinho")
+
 # LIST
 
 
@@ -78,10 +122,15 @@ class ClienteList(LoginRequiredMixin, ListView):
     model = Cliente
     template_name = "cadastros/list/cliente.html"
 
-    
+
 class PedidoList(LoginRequiredMixin, ListView):
     model = Pedido
     template_name = "cadastros/list/pedido.html"
+
+
+class CarrinhoList(LoginRequiredMixin, ListView):
+    model = Carrinho
+    template_name = "cadastros/list/carrinho.html"
 
 
 # DELETE
@@ -109,3 +158,9 @@ class PedidoDelete(LoginRequiredMixin, DeleteView):
     model = Pedido
     template_name = "cadastros/delete.html"
     success_url = reverse_lazy("listar-pedido")
+
+
+class CarrinhoDelete(LoginRequiredMixin, DeleteView):
+    model = Carrinho
+    template_name = "cadastros/delete.html"
+    success_url = reverse_lazy("listar-carrinho")

@@ -3,6 +3,7 @@ from .views import MarcaCreate, MarcaUpdate, MarcaList, MarcaDelete
 from .views import ProdutoCreate, ProdutoUpdate, ProdutoList, ProdutoDelete
 from .views import ClienteCreate, ClienteUpdate, ClienteList, ClienteDelete
 from .views import PedidoCreate, PedidoList, PedidoDelete
+from .views import CarrinhoCreate, CarrinhoList, CarrinhoUpdate, CarrinhoDelete
 
 urlpatterns = [
     path("cadastrar/marca", MarcaCreate.as_view(), name="cadastrar-marca"),
@@ -30,4 +31,11 @@ urlpatterns = [
     path("cadastrar/pedido", PedidoCreate.as_view(), name="cadastrar-pedido"),
     path("listar/pedido", PedidoList.as_view(), name="listar-pedido"),
     path("excluir/pedido/<int:pk>/", PedidoDelete.as_view(), name="excluir-pedido"),
+
+    path("cadastrar/carrinho", CarrinhoCreate.as_view(), name="cadastrar-carrinho"),
+    path("atualizar/carrinho/<int:pk>/",
+         CarrinhoUpdate.as_view(), name="atualizar-carrinho"),
+    path("listar/carrinho", CarrinhoList.as_view(), name="listar-carrinho"),
+    path("excluir/carrinho/<int:pk>/",
+         CarrinhoDelete.as_view(), name="excluir-carrinho"),
 ]

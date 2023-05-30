@@ -42,11 +42,11 @@ class Cliente(models.Model):
 
 
 class Pedido(models.Model):
-    produtos = models.ForeignKey(
-        Produto, on_delete=models.PROTECT, help_text="Selecione um Produto")
     ciclo = models.IntegerField(verbose_name="Ciclo")
     cliente = models.ForeignKey(
         Cliente, on_delete=models.PROTECT, help_text="Selecione um Cliente")
+    valor_total = models.DecimalField(
+        decimal_places=2, max_digits=9, verbose_name="Preço")
 
     criado_em = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)
@@ -65,3 +65,22 @@ class Pagamento(models.Model):
 
     criado_em = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)
+
+
+class ProdutoPedido(models.Model):
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    pedido = models.ForeignKey(Pedido, on_delete=models.CASCADE)
+    preco = models.DecimalField(
+        decimal_places=2, max_digits=9, verbose_name="Preço")
+    quantidade = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f'{self.produto.nome} ({self.quantidade})'
+
+
+class Carrinho(models.Model):
+    produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
+    quantidade = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return f'Produto: {self.produto} | Qtd. {self.quantidade}'
