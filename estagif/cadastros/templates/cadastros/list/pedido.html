@@ -23,7 +23,6 @@
         <thead>
             <tr>
                 <th>Código</th>
-                <th>Produtos</th>
                 <th>Ciclo</th>
                 <th>Cliente</th>
                 <th>Criado em</th>
@@ -33,9 +32,8 @@
             {% for obj in object_list %}
             <tr class="">
                 <td>{{ obj.pk }}</td>
-                <td>{{ obj.produtos }}</td>
                 <td>{{ obj.ciclo }}</td>
-                <td>{{ obj.cliente }}</td>
+                <td>{{ obj.cliente.pk }} - {{ obj.cliente.nome }}</td>
                 <td>{{ obj.criado_em }}</td>
                 <td>
                     <div class="dropdown">

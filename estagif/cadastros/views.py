@@ -111,27 +111,32 @@ class CarrinhoUpdate(LoginRequiredMixin, UpdateView):
 class MarcaList(LoginRequiredMixin, ListView):
     model = Marca
     template_name = "cadastros/list/marca.html"
+    paginate_by = 50
 
 
 class ProdutoList(LoginRequiredMixin, ListView):
     model = Produto
     template_name = "cadastros/list/produto.html"
-
+    paginate_by = 50
 
 class ClienteList(LoginRequiredMixin, ListView):
     model = Cliente
     template_name = "cadastros/list/cliente.html"
-
+    paginate_by = 50
 
 class PedidoList(LoginRequiredMixin, ListView):
     model = Pedido
     template_name = "cadastros/list/pedido.html"
+    paginate_by = 50
 
+    # Melhora no desempenho da consulta, isso é um INNER JOIN no atributo CLIENTE
+    def get_queryset(self):
+        return Pedido.objects.all().select_related("cliente")
 
 class CarrinhoList(LoginRequiredMixin, ListView):
     model = Carrinho
     template_name = "cadastros/list/carrinho.html"
-
+    paginate_by = 50
 
 # DELETE
 
