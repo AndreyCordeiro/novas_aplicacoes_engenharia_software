@@ -1,3 +1,4 @@
+from typing import Any, Dict
 from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from .models import Marca, Produto, Cliente, Pedido, Carrinho, ProdutoPedido
@@ -35,13 +36,13 @@ class ClienteCreate(LoginRequiredMixin, CreateView):
 
 class PedidoCreate(LoginRequiredMixin, CreateView):
     model = Pedido
-    fields = ["ciclo", "cliente", "valor_total"]
-    template_name = "cadastros/form.html"
+    fields = ["ciclo", "cliente"]
+    template_name = "cadastros/form_pedido.html"
     success_url = reverse_lazy("listar-pedido")
     extra_context = {"titulo": "Cadastro de Pedido"}
 
     def form_valid(self, form):
-        form.instance.preco = 0.0
+        form.instance.valor_total = 0.0
 
         # cria a venda no banco e o object
         url = super().form_valid(form)
@@ -50,6 +51,7 @@ class PedidoCreate(LoginRequiredMixin, CreateView):
         produtos_pedido = Carrinho.objects.all()
         valor_total = 0.0
 
+        # fazer uma validação para caso a lista esteja vazia exigir ao menos um produto
         for i in produtos_pedido:
             valor_total += (float(i.produto.preco) * i.quantidade)
 
@@ -66,6 +68,13 @@ class PedidoCreate(LoginRequiredMixin, CreateView):
         self.object.save()
 
         return url
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        context["carrinho"] = Carrinho.objects.all()
+
+        return context
 
 
 class CarrinhoCreate(LoginRequiredMixin, CreateView):
@@ -73,7 +82,7 @@ class CarrinhoCreate(LoginRequiredMixin, CreateView):
     fields = ["produto", "quantidade"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-carrinho")
-    extra_context = {"titulo": "Carrinho de itens"}
+    extra_context = {"titulo": "Adicionar item ao Carrinho"}
 
 # UPDATE
 
