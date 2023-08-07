@@ -42,6 +42,8 @@
                             <i class="bi bi-gear"></i>
                         </a>
                         <ul class="dropdown-menu">
+                            <li><a class="dropdown-item text-primary" href="{% url 'atualizar-cliente' obj.pk %}">
+                                    <i class="bi bi-search"></i>Detalhes</a></li>
                             <li><a class="dropdown-item text-danger" href="{% url 'excluir-pedido' obj.pk %}">
                                     <i class="bi bi-trash"></i> Excluir</a></li>
                         </ul>

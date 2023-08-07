@@ -4,6 +4,7 @@ from .views import ProdutoCreate, ProdutoUpdate, ProdutoList, ProdutoDelete
 from .views import ClienteCreate, ClienteUpdate, ClienteList, ClienteDelete
 from .views import PedidoCreate, PedidoList, PedidoDelete
 from .views import CarrinhoCreate, CarrinhoList, CarrinhoUpdate, CarrinhoDelete
+from .views import ClienteAutocomplete
 
 urlpatterns = [
     path("cadastrar/marca", MarcaCreate.as_view(), name="cadastrar-marca"),
@@ -38,4 +39,6 @@ urlpatterns = [
     path("listar/carrinho", CarrinhoList.as_view(), name="listar-carrinho"),
     path("excluir/carrinho/<int:pk>/",
          CarrinhoDelete.as_view(), name="excluir-carrinho"),
+
+    path("buscar/cliente", ClienteAutocomplete.as_view(), name="buscar-cliente")
 ]

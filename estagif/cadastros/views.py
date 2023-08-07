@@ -6,6 +6,8 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from dal import autocomplete
+from .forms import PedidoForms
 
 # CREATE
 
@@ -35,8 +37,7 @@ class ClienteCreate(LoginRequiredMixin, CreateView):
 
 
 class PedidoCreate(LoginRequiredMixin, CreateView):
-    model = Pedido
-    fields = ["ciclo", "cliente"]
+    form_class = PedidoForms
     template_name = "cadastros/form_pedido.html"
     success_url = reverse_lazy("listar-pedido")
     extra_context = {"titulo": "Cadastro de Pedido"}
@@ -68,10 +69,10 @@ class PedidoCreate(LoginRequiredMixin, CreateView):
         self.object.save()
 
         return url
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+
         context["carrinho"] = Carrinho.objects.all()
 
         return context
@@ -128,10 +129,12 @@ class ProdutoList(LoginRequiredMixin, ListView):
     template_name = "cadastros/list/produto.html"
     paginate_by = 50
 
+
 class ClienteList(LoginRequiredMixin, ListView):
     model = Cliente
     template_name = "cadastros/list/cliente.html"
     paginate_by = 50
+
 
 class PedidoList(LoginRequiredMixin, ListView):
     model = Pedido
@@ -141,6 +144,7 @@ class PedidoList(LoginRequiredMixin, ListView):
     # Melhora no desempenho da consulta, isso é um INNER JOIN no atributo CLIENTE
     def get_queryset(self):
         return Pedido.objects.all().select_related("cliente")
+
 
 class CarrinhoList(LoginRequiredMixin, ListView):
     model = Carrinho
@@ -178,3 +182,18 @@ class CarrinhoDelete(LoginRequiredMixin, DeleteView):
     model = Carrinho
     template_name = "cadastros/delete.html"
     success_url = reverse_lazy("listar-carrinho")
+
+
+################################### AUTOCOMPLETE ###################################
+
+
+class ClienteAutocomplete(LoginRequiredMixin, autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        object_list = Cliente.objects.all()
+
+        if self.q:
+            object_list = object_list.filter(
+                nome__icontains=self.q
+            )
+
+        return object_list
