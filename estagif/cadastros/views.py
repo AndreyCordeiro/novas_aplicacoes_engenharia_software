@@ -52,7 +52,10 @@ class PedidoCreate(LoginRequiredMixin, CreateView):
         produtos_pedido = Carrinho.objects.all()
         valor_total = 0.0
 
-        # fazer uma validação para caso a lista esteja vazia exigir ao menos um produto
+        if (produtos_pedido.count() == 0):
+            form.add_error("", "Seu carrinho de compras está vazio!")
+            return super().form_invalid(form)
+
         for i in produtos_pedido:
             valor_total += (float(i.produto.preco) * i.quantidade)
 
@@ -150,6 +153,22 @@ class CarrinhoList(LoginRequiredMixin, ListView):
     model = Carrinho
     template_name = "cadastros/list/carrinho.html"
     paginate_by = 50
+
+
+class ProdutoPedidoList(LoginRequiredMixin, ListView):
+    model: ProdutoPedido
+    template_name = "cadastros/list/produto_pedido.html"
+
+    def get_queryset(self):
+        return ProdutoPedido.objects.filter(pedido__pk=self.kwargs["pk_pedido"])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["pedido"] = Pedido.objects.get(pk=self.kwargs["pk_pedido"])
+
+        return context
+
 
 # DELETE
 

@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import MarcaCreate, MarcaUpdate, MarcaList, MarcaDelete
-from .views import ProdutoCreate, ProdutoUpdate, ProdutoList, ProdutoDelete
+from .views import ProdutoCreate, ProdutoUpdate, ProdutoList, ProdutoDelete, ProdutoPedidoList
 from .views import ClienteCreate, ClienteUpdate, ClienteList, ClienteDelete
 from .views import PedidoCreate, PedidoList, PedidoDelete
 from .views import CarrinhoCreate, CarrinhoList, CarrinhoUpdate, CarrinhoDelete
@@ -32,6 +32,8 @@ urlpatterns = [
     path("cadastrar/pedido", PedidoCreate.as_view(), name="cadastrar-pedido"),
     path("listar/pedido", PedidoList.as_view(), name="listar-pedido"),
     path("excluir/pedido/<int:pk>/", PedidoDelete.as_view(), name="excluir-pedido"),
+    path("listar/produtos/pedido/<int:pk_pedido>/", ProdutoPedidoList.as_view(),
+         name="listar-produtos-pedido"),
 
     path("cadastrar/carrinho", CarrinhoCreate.as_view(), name="cadastrar-carrinho"),
     path("atualizar/carrinho/<int:pk>/",

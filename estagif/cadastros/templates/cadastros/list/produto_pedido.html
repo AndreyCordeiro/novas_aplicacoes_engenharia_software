@@ -5,14 +5,12 @@
 {% block conteudo %}
 
 <div class="row justify-content-center align-items-center mt-3">
-    <div class="col-md-8">
-        <h3 class="">Pedidos</h3>
-    </div>
     <div class="col-md">
-        <a href="{% url 'cadastrar-pedido' %}" class="btn btn-primary btn-sm">
-            <i class="bi bi-plus-lg"></i>
-            Cadastrar Pedido
-        </a>
+        <h3 class="">Pedido: {{ pedido.pk }}</h3>
+        <h6 class="">Ciclo: {{ pedido.ciclo }}</h3>
+
+        <h5 class="">Cliente: {{ pedido.cliente.nome }}</h3>
+        <h6 class="">CPF: {{ pedido.cliente.cpf }}</h3>
     </div>
 </div>
 
@@ -22,19 +20,17 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Código</th>
                 <th>Produto</th>
                 <th>Quantidade</th>
                 <th>Preço</th>
             </tr>
         </thead>
         <tbody>
-            {% for obj in carrinho %}
+            {% for obj in object_list %}
             <tr class="">
-                <td>{{ obj.pk }}</td>
                 <td>{{ obj.produto.nome }}</td>
                 <td>{{ obj.quantidade }}</td>
-                <td>{{ obj.produto.preco }}</td>
+                <td>{{ obj.preco }}</td>
             </tr>
             {% endfor %}
         </tbody>
