@@ -10,6 +10,28 @@
     <h1 class="mt-5">Cosmetic Survey</h1>
 
     <p class="lead">Seja bem-vindo ao sistema Cosmetic Survey.</p>
+
+    <p class="lead">Estatística do mês atual.</p>
+
+    <div class="table-responsive-lg">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Clientes Cadastrados</th>
+                    <th>Pedidos Cadastrados</th>
+                    <th>Produtos Cadastrados</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="">
+                    <td>{{ clientes }}</td>
+                    <td>{{ pedidos }}</td>
+                    <td>{{ produtos }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 
 {% endblock %}
