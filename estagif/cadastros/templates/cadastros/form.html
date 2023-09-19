@@ -16,3 +16,55 @@
 </form>
 
 {% endblock %}
+
+{% block scripts %}
+
+<!-- Importação do jQuery Mask Plugin -->
+<script src="{% static 'js/jquery.mask.min.js' %}"></script>
+
+<!-- Aplicar máscaras nos campos -->
+<script>
+    $(document).ready(function () {
+
+        $("#x, #y, #z").attr("type", "text");
+        $("#x, #y, #z").addClass("numeros");
+
+        $("#id_cpf").mask("000.000.000-00");
+        $("input[name*=data_]").mask("00/00/0000");
+
+        var SPMaskBehavior = function (val) {
+            return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+        },
+            spOptions = {
+                onKeyPress: function (val, e, field, options) {
+                    field.mask(SPMaskBehavior.apply({}, arguments), options);
+                }
+            };
+
+        $('#id_telefone').mask(SPMaskBehavior, spOptions);
+
+
+        var CpfCnpjBehavior = function (val) {
+            return val.replace(/\D/g, '').length <= 11 ? '000.000.000-009' : '00.000.000/0000-00';
+        },
+            cpfcnpjOptions = {
+                onKeyPress: function (val, e, field, options) {
+                    field.mask(CpfCnpjBehavior.apply({}, arguments), options);
+                }
+            };
+
+        $('#id_documento').mask(CpfCnpjBehavior, cpfcnpjOptions);
+
+        $("form").submit(function (e) {
+            $.each(".numeros", function (i, valor) {
+                valor = valor.replace(".", "").replace(",", ".");
+                $(this).attr("type", "number");
+                $(this).val(valor);
+            });
+        });
+    });
+</script>
+
+{{ form.media }}
+
+{% endblock %}
