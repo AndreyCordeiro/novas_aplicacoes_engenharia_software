@@ -32,6 +32,9 @@
         $("#id_cpf").mask("000.000.000-00");
         $("input[name*=data_]").mask("00/00/0000");
 
+        $('#id_preco').prop("type", "text");
+        $('#id_preco').mask("#.##0,00", { reverse: true });
+
         var SPMaskBehavior = function (val) {
             return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
         },
@@ -54,14 +57,6 @@
             };
 
         $('#id_documento').mask(CpfCnpjBehavior, cpfcnpjOptions);
-
-        $("form").submit(function (e) {
-            $.each(".numeros", function (i, valor) {
-                valor = valor.replace(".", "").replace(",", ".");
-                $(this).attr("type", "number");
-                $(this).val(valor);
-            });
-        });
     });
 </script>
 

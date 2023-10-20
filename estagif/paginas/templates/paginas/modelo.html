@@ -34,6 +34,9 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{% url 'sobre' %}">Sobre</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'inicio' %}">Início</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
@@ -79,7 +82,7 @@
             <h1 class="mt-5">Cosmetic Survey</h1>
 
             <p class="lead">Seja bem-vindo ao sistema Cosmetic Survey.</p>
-            
+
             <p class="lead">Faça login para começar sua jornada.</p>
 
             {% endblock %}
@@ -98,7 +101,7 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
     {% block scripts %}
-    
+
     {% endblock %}
 </body>
 

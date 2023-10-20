@@ -25,6 +25,7 @@
                 <th>Código</th>
                 <th>Produto</th>
                 <th>Quantidade</th>
+                <th>Preço Unitário</th>
             </tr>
         </thead>
         <tbody>
@@ -33,6 +34,7 @@
                 <td>{{ obj.pk }}</td>
                 <td>{{ obj.produto.nome }}</td>
                 <td>{{ obj.quantidade }}</td>
+                <td>{{ obj.produto.preco }}</td>
                 <td>
                     <div class="dropdown">
                         <a class="btn btn-sm btn-outline-secondary dropdown-toggle" href="#" role="button"

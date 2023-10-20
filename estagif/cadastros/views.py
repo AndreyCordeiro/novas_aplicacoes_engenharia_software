@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from dal import autocomplete
-from .forms import PedidoForms
+from .forms import PedidoForms, ProdutoForms
 
 # CREATE
 
@@ -22,7 +22,7 @@ class MarcaCreate(LoginRequiredMixin, CreateView):
 
 class ProdutoCreate(LoginRequiredMixin, CreateView):
     model = Produto
-    fields = ["nome", "preco", "codigo", "marca"]
+    form_class = ProdutoForms
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-produto")
     extra_context = {"titulo": "Cadastro de Produto"}
@@ -100,7 +100,7 @@ class MarcaUpdate(LoginRequiredMixin, UpdateView):
 
 class ProdutoUpdate(LoginRequiredMixin, UpdateView):
     model = Produto
-    fields = ["nome", "preco", "codigo", "marca"]
+    form_class = ProdutoForms
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-produto")
 
@@ -181,13 +181,13 @@ class MarcaDelete(LoginRequiredMixin, DeleteView):
 
 class ProdutoDelete(LoginRequiredMixin, DeleteView):
     model = Produto
-    template_name = "cadastros/list/delete.html"
+    template_name = "cadastros/delete.html"
     success_url = reverse_lazy("listar-produto")
 
 
 class ClienteDelete(LoginRequiredMixin, DeleteView):
     model = Cliente
-    template_name = "cadastros/list/delete.html"
+    template_name = "cadastros/delete.html"
     success_url = reverse_lazy("listar-cliente")
 
 
