@@ -2,6 +2,9 @@
 
 {% load static %}
 
+<!-- Carrega os filtros -->
+{% load meus_filtros %}
+
 {% load crispy_forms_tags %}
 
 {% block conteudo %}
@@ -15,6 +18,7 @@
                 <th>Produto</th>
                 <th>Quantidade</th>
                 <th>Preço Unitário</th>
+                <th>Valor Total</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +28,7 @@
                 <td>{{ obj.produto.nome }}</td>
                 <td>{{ obj.quantidade }}</td>
                 <td>{{ obj.produto.preco }}</td>
+                <td>{{ obj.quantidade|valor_total_item_carrinho:obj.produto.preco }}</td>
             </tr>
             {% empty %}
             <tr>
